@@ -18,7 +18,6 @@ app.use(
 mongoose.connect(url, (err, db) => {
     if (err) throw err;
     console.log("DB IS CONNECTED");
-    // console.log(db.collections.memories);
 });
 
 
