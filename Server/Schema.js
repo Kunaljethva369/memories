@@ -15,7 +15,7 @@ const MemoriesShcema = new mongoose.Schema({
     },
     image: {
         type: String,
-        require: true
+        required: true,
     }
 });
 

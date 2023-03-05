@@ -9,16 +9,17 @@ function PopUp(popUp) {
         subTitle: "",
         message: "",
         image: ""
-    })
+    });
 
-    const handleChange = (e) => {
+    const handleChange = async (e) => {
         var { name, value } = e.target;
-
+        
         if (name == 'image') {
+            const base64 = await convertToBase64(e.target.files[0])
             setFormData({
                 ...formData,
-                [name]: value = URL.createObjectURL(e.target.files[0])
-            })
+                [name]: base64
+            });
         }
         else {
             setFormData({
@@ -26,17 +27,16 @@ function PopUp(popUp) {
                 [name]: value
             });
         }
-        
     }
-    
+
     const handleData = (e) => {
         e.preventDefault();
         innerData.push(formData);
-        axios.post('http://localhost:3001/memories',formData).then((res, err) => {
-            if(res.data == "Memories Stored"){
+        axios.post('http://localhost:3001/memories', formData).then((res, err) => {
+            if (res.data == "Memories Stored") {
                 console.log("Memories Stored");
             }
-            else{
+            else {
                 console.log(err);
             }
         }).catch((err) => {
@@ -91,6 +91,19 @@ function PopUp(popUp) {
             </div>
         </>
     )
+}
+
+function convertToBase64(file) {
+    return new Promise((resolve, reject) => {
+        const fileReader = new FileReader();
+        fileReader.readAsDataURL(file);
+        fileReader.onload = () => {
+            resolve(fileReader.result)
+        };
+        fileReader.onerror = (error) => {
+            reject(error)
+        }
+    })
 }
 
 export default PopUp
