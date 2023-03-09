@@ -55,4 +55,15 @@ app.post("/memories", async (req, res) => {
     }
 });
 
+app.delete('/delete', async (req, res) => {
+    try {
+        const id = req.body._id
+        await Memories.deleteOne(id);
+        res.status(200).send({ message: "Deleted Memories" });
+    }
+    catch (err) {
+        console.log(err);
+    }
+});
+
 app.listen(PORT, () => { console.log(`App is Lisiting on PORT ${PORT}`) });

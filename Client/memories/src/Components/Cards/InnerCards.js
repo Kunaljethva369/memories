@@ -1,11 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import axios from 'axios';
 
 function InnerCards(data) {
+    const deleteMemoreis = (el) => {
+        const deletedMemories = data.sendToInnerData.props.memories.filter((element) => {
+            return element._id !== el._id;
+        });
+        axios.delete('http://localhost:3001/delete', deletedMemories[0]).then(async (res) => {
+            if (res.data.message == "Deleted Memories")
+                await data.sendToInnerData.props.setMemories(deletedMemories);
+        }).catch((err) => {
+            console.log(err);
+        });
+    }
+
     return (
         <>
             {
 
-                data.sendToInnerData.props?.length > 0 ? data.sendToInnerData.props.map((el, key) => {
+                data.sendToInnerData.props.memories?.length > 0 ? data.sendToInnerData.props.memories.map((el, key) => {
                     return (
                         <>
                             <div className="card mt-5" key={key}>
@@ -16,7 +29,7 @@ function InnerCards(data) {
                                     <p className="card-text">{el.message}</p>
                                     <div className='d-flex justify-content-between'>
                                         <button className="card-link">Like</button>
-                                        <button className="card-link del">Delete</button>
+                                        <button className="card-link del" onClick={() => { deleteMemoreis(el) }}>Delete</button>
                                     </div>
                                 </div>
                             </div>

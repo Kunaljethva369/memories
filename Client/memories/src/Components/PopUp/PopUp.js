@@ -1,29 +1,21 @@
-import React, { useState } from 'react';
+import React from 'react';
 import axios from 'axios';
 import './PopUp.css';
 
 function PopUp(popUp) {
-    const [innerData, setinnerData] = useState([]);
-    const [formData, setFormData] = useState({
-        title: "",
-        subTitle: "",
-        message: "",
-        image: ""
-    });
-
     const handleChange = async (e) => {
         var { name, value } = e.target;
-        
+
         if (name == 'image') {
             const base64 = await convertToBase64(e.target.files[0])
-            setFormData({
-                ...formData,
+            popUp.props.setFormData({
+                ...popUp.props.formData,
                 [name]: base64
             });
         }
         else {
-            setFormData({
-                ...formData,
+            popUp.props.setFormData({
+                ...popUp.props.formData,
                 [name]: value
             });
         }
@@ -31,8 +23,7 @@ function PopUp(popUp) {
 
     const handleData = (e) => {
         e.preventDefault();
-        innerData.push(formData);
-        axios.post('http://localhost:3001/memories', formData).then((res, err) => {
+        axios.post('http://localhost:3001/memories', popUp.props.formData).then((res, err) => {
             if (res.data == "Memories Stored") {
                 console.log("Memories Stored");
             }
@@ -42,13 +33,13 @@ function PopUp(popUp) {
         }).catch((err) => {
             if (err) throw err;
         })
-        popUp.props.setMemories(innerData);
+        popUp.props.setMemories([...popUp.props.memories, popUp.props.formData]);
         popUp.props.setPopup(false);
     }
 
     const resetForm = (e) => {
         const { name, value } = e.target;
-        setFormData({
+        popUp.props.setFormData({
             [name]: ''
         })
     }
@@ -59,15 +50,15 @@ function PopUp(popUp) {
                 <div className='cross' onClick={popUp.props.closePopup}>X</div>
                 <form className='PopUp' onSubmit={handleData} onReset={resetForm}>
                     <div className="user-box">
-                        <input type="text" value={formData.title} onChange={handleChange} name="title" required />
+                        <input type="text" value={popUp.props.formData.title} onChange={handleChange} name="title" required />
                         <label>Title</label>
                     </div>
                     <div className="user-box">
-                        <input type="text" value={formData.subTitle} onChange={handleChange} name="subTitle" required />
+                        <input type="text" value={popUp.props.formData.subTitle} onChange={handleChange} name="subTitle" required />
                         <label>SubTitle</label>
                     </div>
                     <div className="user-box">
-                        <input type="text" value={formData.discription} onChange={handleChange} name="message" required />
+                        <input type="text" value={popUp.props.formData.discription} onChange={handleChange} name="message" required />
                         <label>Message</label>
                     </div>
                     <input className='chooseFile' type="file" onChange={handleChange} name="image" required />
