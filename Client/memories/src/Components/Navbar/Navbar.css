@@ -8,6 +8,16 @@
     color: rgb(248, 227, 246);
 }
 
+.navbar-brand{
+    width: 50%;
+}
+
+.navbar-brand img {
+    width: 8%;
+    height: 5%;
+    mix-blend-mode:luminosity
+}
+
 .nav-item a {
     text-decoration: none;
 }
@@ -23,4 +33,13 @@
 
 .collapse.navbar-collapse {
     justify-content: flex-end;
+}
+
+@media only screen and (max-width:991px) {
+    .navbar-brand{
+        width: 40%;
+    }
+    .navbar-brand img {
+        width: 35%;
+    }
 }

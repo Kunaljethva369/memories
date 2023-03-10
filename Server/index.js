@@ -41,6 +41,7 @@ app.get('/getMemories', (req, res) => {
 app.post("/memories", async (req, res) => {
     res.setHeader('Content-Type', 'application/json');
     const memories = new Memories({
+        id: req.body.id,
         title: req.body.title,
         subTitle: req.body.subTitle,
         message: req.body.message,
@@ -48,17 +49,17 @@ app.post("/memories", async (req, res) => {
     });
     const memoriesData = await memories.save();
     if (memoriesData) {
-        res.status(200).send({ message: "Memories Stored" })
+        res.status(200).send({ message: "Memories Stored" });
     }
     else {
         res.status(401).send({ message: "Error Occoured" });
     }
 });
 
-app.delete('/delete', async (req, res) => {
+app.delete('/delete/:id', async (req, res) => {
     try {
-        const id = req.body._id
-        await Memories.deleteOne(id);
+        const id = req.params.id
+        await Memories.deleteOne({ id });
         res.status(200).send({ message: "Deleted Memories" });
     }
     catch (err) {

@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import './PopUp.css';
+import { v4 as uuid } from 'uuid';
 
 function PopUp(popUp) {
     const handleChange = async (e) => {
@@ -24,7 +25,7 @@ function PopUp(popUp) {
     const handleData = (e) => {
         e.preventDefault();
         axios.post('http://localhost:3001/memories', popUp.props.formData).then((res, err) => {
-            if (res.data == "Memories Stored") {
+            if (res.data.message == "Memories Stored") {
                 console.log("Memories Stored");
             }
             else {
@@ -40,6 +41,7 @@ function PopUp(popUp) {
     const resetForm = (e) => {
         const { name, value } = e.target;
         popUp.props.setFormData({
+            id: uuid(),
             [name]: ''
         })
     }

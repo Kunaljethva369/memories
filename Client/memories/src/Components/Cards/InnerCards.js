@@ -3,12 +3,25 @@ import axios from 'axios';
 
 function InnerCards(data) {
     const deleteMemoreis = (el) => {
-        const deletedMemories = data.sendToInnerData.props.memories.filter((element) => {
-            return element._id !== el._id;
+        const remainingMemoreis = data.sendToInnerData.props.memories.filter((element) => {
+            if (data.sendToInnerData.props.memories.length == 1) {
+                return element.id !== el.id;
+            }
+            else {
+                return element.id !== el.id;
+            }
         });
-        axios.delete('http://localhost:3001/delete', deletedMemories[0]).then(async (res) => {
-            if (res.data.message == "Deleted Memories")
-                await data.sendToInnerData.props.setMemories(deletedMemories);
+        const deletedMemories = data.sendToInnerData.props.memories.filter((element) => {
+            if (data.sendToInnerData.props.memories.length == 1) {
+                return element.id == el.id;
+            }
+            else {
+                return element.id == el.id;
+            }
+        });
+        axios.delete(`http://localhost:3001/delete/${deletedMemories[0].id}`).then(async (res) => {
+            if (res.data.message == "Deleted Memories");
+            await data.sendToInnerData.props.setMemories(remainingMemoreis);
         }).catch((err) => {
             console.log(err);
         });

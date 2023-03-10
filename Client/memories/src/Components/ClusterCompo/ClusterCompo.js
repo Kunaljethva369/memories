@@ -3,9 +3,11 @@ import axios from 'axios';
 import Cards from '../Cards/Cards';
 import Navbar from '../Navbar/Navbar';
 import PopUp from '../PopUp/PopUp';
+import { v4 as uuid } from 'uuid';
 
 function ClusterCompo() {
     const [formData, setFormData] = useState({
+        id: uuid(),
         title: "",
         subTitle: "",
         message: "",
