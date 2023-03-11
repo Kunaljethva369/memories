@@ -19,7 +19,7 @@ function InnerCards(data) {
                 return element.id == el.id;
             }
         });
-        axios.delete(`http://localhost:3001/delete/${deletedMemories[0].id}`).then(async (res) => {
+        axios.delete(`https://react-curd.onrender.com/delete/${deletedMemories[0].id}`).then(async (res) => {
             if (res.data.message == "Deleted Memories");
             await data.sendToInnerData.props.setMemories(remainingMemoreis);
         }).catch((err) => {

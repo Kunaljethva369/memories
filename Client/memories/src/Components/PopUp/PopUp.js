@@ -31,7 +31,7 @@ function PopUp(popUp) {
             console.log(editMemories);
         }
         else {
-            axios.post('http://localhost:3001/memories', popUp.props.formData).then((res, err) => {
+            axios.post('https://react-curd.onrender.com/memories', popUp.props.formData).then((res, err) => {
                 if (res.data.message == "Memories Stored") {
                     console.log("Memories Stored");
                 }

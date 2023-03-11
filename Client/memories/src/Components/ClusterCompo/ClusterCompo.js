@@ -28,7 +28,7 @@ function ClusterCompo() {
 
     useEffect(() => {
         const getData = () => {
-            axios.get('http://localhost:3001/getMemories').then(async (res) => {
+            axios.get('https://react-curd.onrender.com/getMemories').then(async (res) => {
                 const data = await res.data;
                 setMemories(data);
             }).catch((err) => {
