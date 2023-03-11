@@ -10,7 +10,7 @@ const app = express();
 
 app.use(
     cors({
-        origin: "https://react-curd.onrender.com",
+        origin: "*",
         methods: "GET,POST,PUT,DELETE",
         credentials: true,
     })
