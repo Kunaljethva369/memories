@@ -10,7 +10,7 @@ const app = express();
 
 app.use(
     cors({
-        origin: "https://incomparable-nougat-89f78a.netlify.app/",
+        origin: "https://react-curd.onrender.com",
         methods: "GET,POST,PUT,DELETE",
         credentials: true,
     })
