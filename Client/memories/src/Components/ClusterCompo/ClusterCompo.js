@@ -14,6 +14,8 @@ function ClusterCompo() {
         image: ""
     });
     const [popUp, setPopup] = useState(false);
+    const [isEiditing, setIsEiditing] = useState(false);
+    const [editId, setEditId] = useState([]);
     const [memories, setMemories] = useState([]);
 
     const openPopUp = () => {
@@ -40,8 +42,8 @@ function ClusterCompo() {
         <>
             <div className='container'>
                 <Navbar props={{ setPopup, openPopUp }} />
-                <Cards props={{ memories, setMemories, formData, setFormData }} />
-                <PopUp props={{ popUp, setPopup, formData, setFormData, closePopup, memories, setMemories }} />
+                <Cards props={{ memories, setMemories, formData, setFormData, setPopup, setIsEiditing, setEditId }} />
+                <PopUp props={{ popUp, setPopup, formData, setFormData, closePopup, memories, setMemories, isEiditing, editId }} />
             </div>
         </>
     )

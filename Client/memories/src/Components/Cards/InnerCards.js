@@ -27,6 +27,17 @@ function InnerCards(data) {
         });
     }
 
+
+    const editMemories = (el) => {
+        data.sendToInnerData.props.formData.title = el.title;
+        data.sendToInnerData.props.formData.subTitle = el.subTitle;
+        data.sendToInnerData.props.formData.message = el.message;
+        data.sendToInnerData.props.setEditId(el.id);
+        // data.sendToInnerData.props.formData.image
+        data.sendToInnerData.props.setPopup(true);
+        data.sendToInnerData.props.setIsEiditing(true);
+    }
+
     return (
         <>
             {
@@ -41,7 +52,7 @@ function InnerCards(data) {
                                     <h5 className="card-title">{el.title}</h5>
                                     <p className="card-text">{el.message}</p>
                                     <div className='d-flex justify-content-between'>
-                                        <button className="card-link">Like</button>
+                                        <button className="card-link" onClick={() => { editMemories(el) }}>Edit</button>
                                         <button className="card-link del" onClick={() => { deleteMemoreis(el) }}>Delete</button>
                                     </div>
                                 </div>
