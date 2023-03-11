@@ -10,7 +10,7 @@ const app = express();
 
 app.use(
     cors({
-        origin: "http://localhost:3000",
+        origin: "https://incomparable-nougat-89f78a.netlify.app/",
         methods: "GET,POST,PUT,DELETE",
         credentials: true,
     })
