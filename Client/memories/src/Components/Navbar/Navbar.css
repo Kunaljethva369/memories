@@ -3,19 +3,26 @@
     padding-right: 5rem;
 }
 
+.navbar {
+    justify-content: space-evenly !important;
+}
+
 .navbar-brand,
 .nav-urls {
     color: rgb(248, 227, 246);
 }
 
-.navbar-brand{
-    width: 50%;
+.nav-urls {
+    text-decoration: none;
+}
+
+.navbar-brand {
+    width: 70%;
 }
 
 .navbar-brand img {
     width: 8%;
-    height: 5%;
-    mix-blend-mode:luminosity
+    height: 4%;
 }
 
 .nav-item a {
@@ -28,7 +35,7 @@
 }
 
 .nav-urls:hover {
-    color: rgb(243, 17, 201);
+    color: #ffeba7;
 }
 
 .collapse.navbar-collapse {
@@ -36,10 +43,16 @@
 }
 
 @media only screen and (max-width:991px) {
-    .navbar-brand{
-        width: 40%;
+    .navbar-brand {
+        width: 30%;
     }
+
     .navbar-brand img {
-        width: 35%;
+        width: 50%;
+    }
+
+    .nav-urls {
+        font-size: 1rem;
+        margin-right: 0rem;
     }
 }

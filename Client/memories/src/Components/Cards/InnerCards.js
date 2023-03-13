@@ -19,9 +19,12 @@ function InnerCards(data) {
                 return element.id == el.id;
             }
         });
+        data.sendToInnerData.props.setLoader(true);
         axios.delete(`https://react-curd.onrender.com/delete/${deletedMemories[0].id}`).then(async (res) => {
+        // axios.delete(`http://localhost:3001/delete/${deletedMemories[0].id}`).then(async (res) => {
             if (res.data.message == "Deleted Memories");
             await data.sendToInnerData.props.setMemories(remainingMemoreis);
+            data.sendToInnerData.props.setLoader(false);
         }).catch((err) => {
             console.log(err);
         });
@@ -59,7 +62,7 @@ function InnerCards(data) {
                             </div>
                         </>
                     )
-                }) : <h1 className='nomemories'>No Memories, Create Here</h1>
+                }) : <h1 className='nomemories'>No Recipes, Save Here</h1>
             }
         </>
     )

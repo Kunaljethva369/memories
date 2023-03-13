@@ -14,6 +14,7 @@
     box-shadow: 0 20px 20px rgba(0, 0, 0, .9);
     border-radius: 10px;
     display: none;
+    z-index: 999;
 }
 
 .login-box .user-box {
@@ -38,10 +39,12 @@
     left: 0;
     padding: 10px 0;
     font-size: 16px;
-    color: rgb(243, 17, 201);
+    color: #ffeba7;
     pointer-events: none;
     transition: .5s;
 }
+
+
 
 .login-box .user-box input:focus~label,
 .login-box .user-box input:valid~label {
@@ -55,7 +58,7 @@
     position: relative;
     display: inline-block;
     padding: 10px 20px;
-    color: rgb(243, 17, 201);
+    color: #ffeba7;
     font-size: 16px;
     text-decoration: none;
     text-transform: uppercase;
@@ -68,13 +71,13 @@
 }
 
 .login-box button:hover {
-    background: rgb(243, 17, 201);
+    background: #ffeba7;
     color: #fff;
     border-radius: 5px;
-    box-shadow: 0 0 5px rgb(243, 17, 201),
-        0 0 25px rgb(243, 17, 201),
-        0 0 50px rgb(243, 17, 201),
-        0 0 100px rgb(243, 17, 201);
+    box-shadow: 0 0 5px #ffeba7,
+        0 0 25px #ffeba7,
+        0 0 50px #ffeba7,
+        0 0 100px #ffeba7;
 }
 
 .login-box button span {
@@ -82,96 +85,20 @@
     display: block;
 }
 
-.login-box button span:nth-child(1) {
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, rgb(243, 17, 201));
-    animation: btn-anim1 1.5s linear infinite;
-}
-
-@keyframes btn-anim1 {
-    0% {
-        left: -100%;
-    }
-
-    50%,
-    100% {
-        left: 100%;
-    }
-}
-
-.login-box button span:nth-child(2) {
-    top: -100%;
-    right: 0;
-    width: 2px;
-    height: 100%;
-    background: linear-gradient(180deg, transparent, rgb(243, 17, 201));
-    animation: btn-anim2 1s linear infinite;
-    animation-delay: .50s
-}
-
-@keyframes btn-anim2 {
-    0% {
-        top: -100%;
-    }
-
-    50%,
-    100% {
-        top: 100%;
-    }
-}
-
-.login-box button span:nth-child(3) {
-    bottom: 0;
-    right: -100%;
-    width: 100%;
-    height: 2px;
-    background: linear-gradient(270deg, transparent, rgb(243, 17, 201));
-    animation: btn-anim3 1s linear infinite;
-    animation-delay: .9s
-}
-
-@keyframes btn-anim3 {
-    0% {
-        right: -100%;
-    }
-
-    50%,
-    100% {
-        right: 100%;
-    }
-}
-
-.login-box button span:nth-child(4) {
-    bottom: -100%;
-    left: 0;
-    width: 2px;
-    height: 100%;
-    background: linear-gradient(360deg, transparent, rgb(243, 17, 201));
-    animation: btn-anim4 1s linear infinite;
-    animation-delay: .150s
-}
-
-@keyframes btn-anim4 {
-    0% {
-        bottom: -100%;
-    }
-
-    50%,
-    100% {
-        bottom: 100%;
-    }
-}
-
 .chooseFile {
     margin-bottom: 0.5rem;
+    color: white;
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+}
+
+.heading {
     color: white;
 }
 
 .cross {
-    color: white;
+    color: black;
     font-size: 2rem;
     position: absolute;
     right: 20px;
@@ -179,10 +106,16 @@
     cursor: pointer;
 }
 
-.cross:hover{
-    color: rgb(243, 17, 201);
+.cross:hover {
+    color: black;
 }
 
 .PopUp {
     padding-top: 2.5rem;
+}
+
+@media only screen and (max-width:567px) {
+    .login-box {
+        width: 330px;
+    }
 }

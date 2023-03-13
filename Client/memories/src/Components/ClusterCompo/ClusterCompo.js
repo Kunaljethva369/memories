@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import Loader from '../Loader/Loader'
 import Cards from '../Cards/Cards';
 import Navbar from '../Navbar/Navbar';
 import PopUp from '../PopUp/PopUp';
-import { v4 as uuid } from 'uuid';
+import Login from '../Login/Login';
 
 function ClusterCompo() {
     const [formData, setFormData] = useState({
-        id: uuid(),
+        id:"",
         title: "",
         subTitle: "",
         message: "",
@@ -17,6 +18,8 @@ function ClusterCompo() {
     const [isEiditing, setIsEiditing] = useState(false);
     const [editId, setEditId] = useState([]);
     const [memories, setMemories] = useState([]);
+    const [loginPopUp, setLoginPopUp] = useState(false);
+    const [loader, setLoader] = useState(false);
 
     const openPopUp = () => {
         setPopup(true);
@@ -28,9 +31,12 @@ function ClusterCompo() {
 
     useEffect(() => {
         const getData = () => {
+            setLoader(true);
             axios.get('https://react-curd.onrender.com/getMemories').then(async (res) => {
+            // axios.get('http://localhost:3001/getMemories').then(async (res) => {
                 const data = await res.data;
                 setMemories(data);
+                setLoader(false);
             }).catch((err) => {
                 console.log(err);
             });
@@ -40,10 +46,12 @@ function ClusterCompo() {
 
     return (
         <>
+            <Loader props={{ loader }} />
             <div className='container'>
-                <Navbar props={{ setPopup, openPopUp }} />
-                <Cards props={{ memories, setMemories, formData, setFormData, setPopup, setIsEiditing, setEditId }} />
-                <PopUp props={{ popUp, setPopup, formData, setFormData, closePopup, memories, setMemories, isEiditing, editId }} />
+                <Login props={{ loginPopUp, setLoginPopUp }} />
+                <Navbar props={{ setPopup, openPopUp, setLoginPopUp, closePopup }} />
+                <Cards props={{ memories, setMemories, formData, setFormData, setPopup, setIsEiditing, setEditId, setLoader }} />
+                <PopUp props={{ popUp, setPopup, formData, setFormData, closePopup, memories, setMemories, isEiditing, editId, setLoader }} />
             </div>
         </>
     )

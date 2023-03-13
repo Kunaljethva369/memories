@@ -1,77 +1,93 @@
-.card{
+.card {
     width: 18rem;
 }
 
-.cards{
+.cards {
     display: grid;
     grid-template-columns: auto auto auto auto;
     width: 100%;
+    padding-bottom: 2rem;
 }
 
 
 @media only screen and (max-width:1400px) {
-    .cards{
+    .cards {
         grid-template-columns: auto auto auto;
         column-gap: 35px;
     }
-    .card, .card img{
+
+    .card,
+    .card img {
         width: 100%;
     }
 }
 
 @media only screen and (max-width:1024px) {
-    .cards{
+    .cards {
         grid-template-columns: auto auto auto;
         column-gap: 20px;
     }
-    .card, .card img{
+
+    .card,
+    .card img {
         width: 100%;
     }
 }
 
 @media only screen and (max-width:768px) {
-    .cards{
+    .cards {
         grid-template-columns: auto auto;
         column-gap: 10px;
     }
-    .card, .card img{
+
+    .card,
+    .card img {
         width: 100%;
     }
 }
 
 @media only screen and (max-width:600px) {
-    .cards{
+    .cards {
         grid-template-columns: auto;
     }
-    .card, .card img{
-        width: 100%;    
+
+    .card,
+    .card img {
+        width: 100%;
     }
 }
 
-.card-img{
+.card-img {
     height: 250px;
-    object-fit:fill;
+    object-fit: fill;
 }
 
-.nomemories{
+.nomemories {
     color: white;
     position: absolute;
     top: 32%;
     left: 35%;
 }
 
-.card-link{
+.card-link {
     padding: 2px 5px;
-    color: rgb(243, 17, 201);
+    color: black;
     margin-top: 5px;
     transition: 0.5s ease-in-out;
     border: none;
+    padding: 0.2rem 0.8rem;
 }
-.card-link:hover{
-    background: rgb(243, 17, 201);
-    color: #fff;
+
+.card-link.del{
+    color: black;
+}
+
+.card-link:hover {
+    background: #ffeba7;
+    color: #011558;
     border-radius: 5px;
 }
-.card-link.del:hover{
+
+.card-link.del:hover {
     background-color: red;
 }
