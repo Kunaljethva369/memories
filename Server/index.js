@@ -1,8 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const Memories = require('./Schema');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const all_router = require('./Routes/getRecipe');
 const PORT = process.env.PORT || 3001;
 const url = `mongodb+srv://root:root@cluster0.vpd5igb.mongodb.net/?retryWrites=true&w=majority`;
 
@@ -23,48 +23,50 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
+app.use('/recipe', all_router);
+
 mongoose.connect(url, (err, db) => {
     if (err) throw err;
     console.log("DB IS CONNECTED");
 });
 
-app.get('/getMemories', (req, res) => {
-    Memories.find((err, docs) => {
-        if (!err) {
-            res.send(docs);
-        } else {
-            console.log('Failed to retrieve the Course List: ' + err);
-        }
-    });
-});
-
-app.post("/memories", async (req, res) => {
-    res.setHeader('Content-Type', 'application/json');
-    const memories = new Memories({
-        id: req.body.id,
-        title: req.body.title,
-        subTitle: req.body.subTitle,
-        message: req.body.message,
-        image: req.body.image
-    });
-    const memoriesData = await memories.save();
-    if (memoriesData) {
-        res.status(200).send({ message: "Memories Stored" });
-    }
-    else {
-        res.status(401).send({ message: "Error Occoured" });
-    }
-});
-
-app.delete('/delete/:id', async (req, res) => {
-    try {
-        const id = req.params.id
-        await Memories.deleteOne({ id });
-        res.status(200).send({ message: "Deleted Memories" });
-    }
-    catch (err) {
-        console.log(err);
-    }
-});
-
 app.listen(PORT, () => { console.log(`App is Lisiting on PORT ${PORT}`) });
+
+// app.get('/getMemories', (req, res) => {
+//     Memories.find((err, docs) => {
+//         if (!err) {
+//             res.send(docs);
+//         } else {
+//             console.log('Failed to retrieve the Course List: ' + err);
+//         }
+//     });
+// });
+
+// app.post("/memories", async (req, res) => {
+//     res.setHeader('Content-Type', 'application/json');
+//     const memories = new Memories({
+//         id: req.body.id,
+//         title: req.body.title,
+//         subTitle: req.body.subTitle,
+//         message: req.body.message,
+//         image: req.body.image
+//     });
+//     const memoriesData = await memories.save();
+//     if (memoriesData) {
+//         res.status(200).send({ message: "Memories Stored" });
+//     }
+//     else {
+//         res.status(401).send({ message: "Error Occoured" });
+//     }
+// });
+
+// app.delete('/delete/:id', async (req, res) => {
+//     try {
+//         const id = req.params.id
+//         await Memories.deleteOne({ id });
+//         res.status(200).send({ message: "Deleted Memories" });
+//     }
+//     catch (err) {
+//         console.log(err);
+//     }
+// });
