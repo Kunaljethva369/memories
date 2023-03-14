@@ -35,8 +35,8 @@ function PopUp(popUp) {
         }
         else {
             popUp.props.setLoader(true);
-            // axios.post('https://react-curd.onrender.com/memories', popUp.props.formData).then((res, err) => {
-            axios.post('http://localhost:3001/recipe/addrecpie', popUp.props.formData).then((res, err) => {
+            axios.post('https://react-curd.onrender.com/recipe/addrecpie', popUp.props.formData).then((res, err) => {
+            // axios.post('http://localhost:3001/recipe/addrecpie', popUp.props.formData).then((res, err) => {
                 if (res.data.message == "Recipe is Stored") {
                     console.log("Memories Stored");
                     popUp.props.setMemories([...popUp.props.memories, popUp.props.formData]);
