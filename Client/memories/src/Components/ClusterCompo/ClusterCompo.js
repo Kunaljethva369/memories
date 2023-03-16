@@ -30,18 +30,18 @@ function ClusterCompo() {
     }
 
     useEffect(() => {
-        const getData = () => {
-            setLoader(true);
-            axios.get('https://react-curd.onrender.com/recipe/getrecipes').then(async (res) => {
-            // axios.get('http://localhost:3001/recipe/getrecipes').then(async (res) => {
-                const data = await res.data;
-                setMemories(data);
-                setLoader(false);
-            }).catch((err) => {
-                console.log(err);
-            });
-        }
-        getData();
+        // const getData = () => {
+        //     setLoader(true);
+        //     // axios.get('https://react-curd.onrender.com/recipe/getrecipes').then(async (res) => {
+        //     axios.get('http://localhost:3001/recipe/getrecipes').then(async (res) => {
+        //         const data = await res.data;
+        //         setMemories(data);
+        //         setLoader(false);
+        //     }).catch((err) => {
+        //         console.log(err);
+        //     });
+        // }
+        // getData();
     }, []);
 
     return (

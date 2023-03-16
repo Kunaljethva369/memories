@@ -20,14 +20,14 @@ function InnerCards(data) {
             }
         });
         data.sendToInnerData.props.setLoader(true);
-        axios.delete(`https://react-curd.onrender.com/recipe/deleterecpie/${deletedMemories[0].id}`).then(async (res) => {
+        // axios.delete(`https://react-curd.onrender.com/recipe/deleterecpie/${deletedMemories[0].id}`).then(async (res) => {
         // axios.delete(`http://localhost:3001/recipe/deleterecpie/${deletedMemories[0].id}`).then(async (res) => {
-            if (res.data.message == "Deleted Memories");
-            await data.sendToInnerData.props.setMemories(remainingMemoreis);
-            data.sendToInnerData.props.setLoader(false);
-        }).catch((err) => {
-            console.log(err);
-        });
+        //     if (res.data.message == "Deleted Memories");
+        //     await data.sendToInnerData.props.setMemories(remainingMemoreis);
+        //     data.sendToInnerData.props.setLoader(false);
+        // }).catch((err) => {
+        //     console.log(err);
+        // });
     }
 
 

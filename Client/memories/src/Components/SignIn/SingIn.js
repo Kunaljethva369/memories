@@ -1,7 +1,52 @@
-import React from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
 import './SignIn.css';
 
-function SignIn() {
+function SignIn(sign) {
+
+    const [registerData, setRegisterData] = useState({
+        name: "",
+        email: "",
+        password: ""
+    });
+
+
+    const handleRegisterData = (e) => {
+        const { name, value } = e.target;
+        setRegisterData({
+            ...registerData,
+            [name]: value
+        });
+    }
+
+
+    const handleSubmit = () => {
+        console.log(registerData);
+        axios.post('http://localhost:3001/recipe/registerUser', registerData).then((res) => {
+            if (res.data.message == "User registered successfully") {
+                alert("Register Succesfully");
+                sign.props.props.setLoginPopUp(false);
+                setRegisterData({
+                    name: "",
+                    email: "",
+                    password: "",
+                })
+            }
+            else if (res.data.message == "User already exists") {
+                console.log("User Exists, please enter your email id");
+                // sign.props.props.setLoginPopUp(false);
+                // setRegisterData({
+                //     name: "",
+                //     email: "",
+                //     password: "",
+                // })
+            }
+        }).catch((err) => {
+            console.log(err);
+        });
+    }
+
+
     return (
         <>
             <div class="card-back">
@@ -11,21 +56,21 @@ function SignIn() {
                         <div class="form-group">
                             <div className='formsKunal'>
                                 <div><i class="fa fa-user fs-4" aria-hidden="true"></i></div>
-                                <input type="text" className='form-style' name='Name' placeholder="Enter Your Name" autoComplete='off' required />
+                                <input type="text" className='form-style' value={registerData.name} name='name' onChange={handleRegisterData} placeholder="Enter Your Name" autoComplete='off' required />
                                 <i class="input-icon uil uil-user"></i>
                             </div>
                         </div>
                         <div class="form-group mt-2">
                             <div className='formsKunal'>
                                 <div><i class="fa fa-envelope" aria-hidden="true"></i></div>
-                                <input type="email" className='form-style' name='Email' placeholder="Enter Your Email" autoComplete='off' required />
+                                <input type="email" className='form-style' value={registerData.email} name='email' onChange={handleRegisterData} placeholder="Enter Your Email" autoComplete='off' required />
                                 <i class="input-icon uil uil-at"></i>
                             </div>
                         </div>
                         <div class="form-group mt-2">
                             <div className='formsKunal'>
                                 <div><i class="fa fa-unlock-alt fs-4" aria-hidden="true"></i></div>
-                                <input type="password" className='form-style' name='Password' placeholder="Enter Password" autoComplete='off' required />
+                                <input type="password" className='form-style' value={registerData.password} name='password' onChange={handleRegisterData} placeholder="Enter Password" autoComplete='off' required />
                                 <i class="input-icon uil uil-lock-alt"></i>
                             </div>
                         </div>
@@ -41,7 +86,7 @@ function SignIn() {
                                     </div>
                                 </> : ''
                         } */}
-                        <button className='btn mt-4' value="submit">Register</button>
+                        <button className='btn mt-4' onClick={handleSubmit} value="submit">Register</button>
                     </div>
                 </div>
             </div>

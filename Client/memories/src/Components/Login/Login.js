@@ -40,7 +40,7 @@ function Login(login) {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <SignIn />
+                                            <SignIn props={login} />
                                         </div>
                                     </div>
                                 </div>

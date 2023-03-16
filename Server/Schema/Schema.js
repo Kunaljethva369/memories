@@ -1,28 +1,48 @@
 const mongoose = require('mongoose');
 
-const MemoriesShcema = new mongoose.Schema({
-    id: {
+const LoginRegisterSchema = new mongoose.Schema({
+    name: {
         type: String,
         required: true,
     },
-    title: {
+    email: {
         type: String,
         required: true,
+        unique: true
     },
-    subTitle: {
+    password: {
         type: String,
-        required: true,
+        required: true
     },
-    message: {
-        type: String,
-        required: true,
-    },
-    image: {
-        type: String,
-        required: true,
-    }
-});
+    memories: [String]
+})
 
-const Memories = mongoose.model('Memories', MemoriesShcema);
+// const MemoriesShcema = new mongoose.Schema({
+//     id: {
+//         type: String,
+//         required: true,
+//     },
+//     title: {
+//         type: String,
+//         required: true,
+//     },
+//     subTitle: {
+//         type: String,
+//         required: true,
+//     },
+//     message: {
+//         type: String,
+//         required: true,
+//     },
+//     image: {
+//         type: String,
+//         required: true,
+//     }
+// });
 
-module.exports = Memories;
+// const Memories = mongoose.model('Memories', MemoriesShcema);
+
+const LoginRegister = mongoose.model('Login', LoginRegisterSchema);
+
+// module.exports = Memories;
+module.exports = LoginRegister;
