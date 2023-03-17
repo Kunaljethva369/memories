@@ -14,8 +14,12 @@ const LoginRegisterSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    memories: [String]
-})
+    recipes: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Recipe'
+    }]
+});
+
 
 // const MemoriesShcema = new mongoose.Schema({
 //     id: {
@@ -43,6 +47,7 @@ const LoginRegisterSchema = new mongoose.Schema({
 // const Memories = mongoose.model('Memories', MemoriesShcema);
 
 const LoginRegister = mongoose.model('Login', LoginRegisterSchema);
+// const Recipes = mongoose.model('Recipe', RecipesSchema);
 
 // module.exports = Memories;
 module.exports = LoginRegister;

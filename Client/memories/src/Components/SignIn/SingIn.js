@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { v4 as uuid } from 'uuid';
 import './SignIn.css';
 
 function SignIn(sign) {
@@ -21,25 +22,21 @@ function SignIn(sign) {
 
 
     const handleSubmit = () => {
-        console.log(registerData);
+        sign.props.props.setLoader(true);
         axios.post('http://localhost:3001/recipe/registerUser', registerData).then((res) => {
             if (res.data.message == "User registered successfully") {
-                alert("Register Succesfully");
                 sign.props.props.setLoginPopUp(false);
                 setRegisterData({
                     name: "",
                     email: "",
                     password: "",
-                })
+                });
+                sign.props.props.setLogedIn(true);
+                localStorage.setItem('token', JSON.stringify({ "tokens": uuid(), "emailid": registerData.email }));
+                sign.props.props.setLoader(false);
             }
             else if (res.data.message == "User already exists") {
-                console.log("User Exists, please enter your email id");
-                // sign.props.props.setLoginPopUp(false);
-                // setRegisterData({
-                //     name: "",
-                //     email: "",
-                //     password: "",
-                // })
+                alert("EmailId Exists, please enter other email id");
             }
         }).catch((err) => {
             console.log(err);

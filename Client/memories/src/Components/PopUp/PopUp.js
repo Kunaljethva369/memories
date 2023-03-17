@@ -34,28 +34,28 @@ function PopUp(popUp) {
             });
         }
         else {
-        //     popUp.props.setLoader(true);
-        //     // axios.post('https://react-curd.onrender.com/recipe/addrecpie', popUp.props.formData).then((res, err) => {
-        //     axios.post('http://localhost:3001/recipe/addrecpie', popUp.props.formData).then((res, err) => {
-        //         if (res.data.message == "Recipe is Stored") {
-        //             console.log("Memories Stored");
-        //             popUp.props.setMemories([...popUp.props.memories, popUp.props.formData]);
-        //             popUp.props.setLoader(false);
-        //         }
-        //         else {
-        //             console.log(err);
-        //         }
-        // }).
-        // catch ((err) => {
-        //     if (err) throw err;
-        // });
-        // popUp.props.setPopup(false);
-        // popUp.props.setFormData({
-        //     title: "",
-        //     subTitle: "",
-        //     message: "",
-        //     image: fileInputRef.current.value = '',
-        // });
+            popUp.props.setLoader(true);
+            // axios.post('https://react-curd.onrender.com/recipe/addrecpie', popUp.props.formData).then((res, err) => {
+            axios.post('http://localhost:3001/recipe/addrecpie', popUp.props.formData).then((res, err) => {
+                if (res.data.message == "Recipe is Stored") {
+                    console.log("Memories Stored");
+                    popUp.props.setMemories([...popUp.props.memories, popUp.props.formData]);
+                    popUp.props.setLoader(false);
+                }
+                else {
+                    console.log(err);
+                }
+        }).
+        catch ((err) => {
+            if (err) throw err;
+        });
+        popUp.props.setPopup(false);
+        popUp.props.setFormData({
+            title: "",
+            subTitle: "",
+            message: "",
+            image: fileInputRef.current.value = '',
+        });
     }
 }
 
