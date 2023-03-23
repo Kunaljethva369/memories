@@ -96,7 +96,6 @@ const getRecipesControl = async (req, res) => {
 
 const addRecipecontrol = async (req, res) => {
     const email = req.body.emailid;
-    console.log(email);
     LoginRegister.findOne({ email: email }, (err, user) => {
         if (err) {
             console.log('Error:', err);
@@ -117,7 +116,7 @@ const addRecipecontrol = async (req, res) => {
             });
 
             // Add the new recipe object to the user's `recipes` array
-            user.recipes.push(newRecipe);
+            // user.recipes.push(newRecipe);
 
             newRecipe.save((err, recipe) => {
                 if (err) {
@@ -128,9 +127,9 @@ const addRecipecontrol = async (req, res) => {
                     user.save((err) => {
                         if (err) {
                             console.error(err);
-                            res.status(500).send('Error saving recipe to user. Please try again.');
+                            res.status(500).send(err);
                         } else {
-                            res.status(200).send(recipe);
+                            res.status(200).send({ message: "Recipe is Stored" });
                         }
                     });
                 }
