@@ -43,13 +43,13 @@ function ClusterCompo() {
                     email: LoginedToken
                 }
                 // axios.get('https://react-curd.onrender.com/recipe/getrecipes').then(async (res) => {
-                // axios.post('http://localhost:3001/recipe/getrecipes', formToken).then(async (res) => {
-                //     const data = await res.data;
-                //     setMemories(data);
-                //     setLoader(false);
-                // }).catch((err) => {
-                //     console.log(err);
-                // });
+                axios.post('http://localhost:3001/recipe/getrecipes', formToken).then(async (res) => {
+                    const data = await res.data;
+                    setMemories(data);
+                    setLoader(false);
+                }).catch((err) => {
+                    console.log(err);
+                });
             }
             else {
                 console.log("LOGIN");

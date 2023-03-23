@@ -67,8 +67,18 @@ const getRecipesControl = async (req, res) => {
                 res.status(404).send('User not found');
             } else {
                 console.log("recipes inside");
+                const recipeData = user.recipes.map((recipe) => {
+                    return {
+                        id: recipe.id,
+                        title: recipe.title,
+                        subTitle: recipe.subTitle,
+                        message: recipe.message,
+                        image: recipe.image,
+                    };
+                });
+                res.send(recipeData);
                 // const recipeData = 
-                console.log(LoginRegister.recipes);
+                // console.log(LoginRegister);
                 // .map((recipe) => {
                 //     return {
                 //         id: recipe.id,
