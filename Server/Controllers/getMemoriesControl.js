@@ -67,8 +67,18 @@ const getRecipesControl = async (req, res) => {
                 res.status(404).send('User not found');
             } else {
                 console.log("recipes inside");
+                const recipeData = user.recipes.map((recipe) => {
+                    return {
+                        id: recipe.id,
+                        title: recipe.title,
+                        subTitle: recipe.subTitle,
+                        message: recipe.message,
+                        image: recipe.image,
+                    };
+                });
+                res.send(recipeData);
                 // const recipeData = 
-                console.log(LoginRegister.recipes);
+                // console.log(LoginRegister);
                 // .map((recipe) => {
                 //     return {
                 //         id: recipe.id,
@@ -84,49 +94,102 @@ const getRecipesControl = async (req, res) => {
         });
 }
 
-// const addRecipecontrol = async (req, res) => {
-//     const email = req.body;
-//     LoginRegister.findOne({ email: email })
-//         .populate('recipes')
-//         .exec((err, user) => {
-//             if (err) {
-//                 console.log('Error:', err);
-//                 res.status(500).send(err);
-//             } else if (!user) {
-//                 console.log('User not found');
-//                 res.status(404).send('User not found');
-//             } else {
-//                 const recipeData = LoginRegister.recipes.map((recipe) => {
-//                     return {
-//                         id: recipe.id,
-//                         title: recipe.title,
-//                         subTitle: recipe.subTitle,
-//                         message: recipe.message,
-//                         image: recipe.image,
-//                     };
-//                 });
-//                 console.log('Recipe data:', recipeData);
-//                 res.send(recipeData);
-//             }
-//         });
-//     // res.setHeader('Content-Type', 'application/json');
-//     // const newRecipes = new LoginRegister({
-//     //     recipes: {
-//     //         id: req.body.id,
-//     //         title: req.body.title,
-//     //         subTitle: req.body.subTitle,
-//     //         message: req.body.message,
-//     //         image: req.body.image
-//     //     }
-//     // });
-//     // const recipesData = await newRecipes.save();
-//     // if (recipesData) {
-//     //     res.status(200).send({ message: "Recipe is Stored" });
-//     // }
-//     // else {
-//     //     res.status(401).send({ message: "Error Occoured" });
-//     // }
-// }
+const addRecipecontrol = async (req, res) => {
+    const email = req.body.emailid;
+    console.log(email);
+    LoginRegister.findOne({ email: email }, (err, user) => {
+        if (err) {
+            console.log('Error:', err);
+            // Handle the error appropriately (e.g. return an HTTP 500 error response)
+        } else if (!user) {
+            console.log('User not found Add');
+            // Handle the error appropriately (e.g. return an HTTP 404 error response)
+        } else {
+            // Create a new recipe object
+            // console.log("User");
+            const newRecipe = new Recipes({
+                id: req.body.id,
+                email: req.body.emailid,
+                title: req.body.title,
+                subTitle: req.body.subTitle,
+                message: req.body.message,
+                image: req.body.image
+            });
+
+            // Add the new recipe object to the user's `recipes` array
+            user.recipes.push(newRecipe);
+
+            newRecipe.save((err, recipe) => {
+                if (err) {
+                    console.error(err);
+                    res.status(500).send('Error creating new recipe. Please try again.');
+                } else {
+                    user.recipes.push(recipe._id);
+                    user.save((err) => {
+                        if (err) {
+                            console.error(err);
+                            res.status(500).send('Error saving recipe to user. Please try again.');
+                        } else {
+                            res.status(200).send(recipe);
+                        }
+                    });
+                }
+            });
+
+            // Save the updated user document to the database
+            // user.save((err, updatedUser) => {
+            //     if (err) {
+            //         console.log('Error:', err);
+            //         // Handle the error appropriately (e.g. return an HTTP 500 error response)
+            //     } else {
+            //         console.log('Recipe added successfully');
+            //         // Handle the success appropriately (e.g. return an HTTP 200 success response)
+            //     }
+            // });
+        }
+    });
+    // In
+    // LoginRegister.findOne({ email: email })
+    //     .populate('recipes')
+    //     .exec((err, user) => {
+    //         if (err) {
+    //             console.log('Error:', err);
+    //             res.status(500).send(err);
+    //         } else if (!user) {
+    //             console.log('User not found');
+    //             res.status(404).send('User not found');
+    //         } else {
+    //             const recipeData = LoginRegister.recipes.map((recipe) => {
+    //                 return {
+    //                     id: recipe.id,
+    //                     title: recipe.title,
+    //                     subTitle: recipe.subTitle,
+    //                     message: recipe.message,
+    //                     image: recipe.image,
+    //                 };
+    //             });
+    //             console.log('Recipe data:', recipeData);
+    //             res.send(recipeData);
+    //         }
+    //     });
+    // res.setHeader('Content-Type', 'application/json');
+    // const newRecipes = new LoginRegister({
+    //     recipes: {
+    //         id: req.body.id,
+    //         title: req.body.title,
+    //         subTitle: req.body.subTitle,
+    //         message: req.body.message,
+    //         image: req.body.image
+    //     }
+    // });
+    // const recipesData = await newRecipes.save();
+    // if (recipesData) {
+    //     res.status(200).send({ message: "Recipe is Stored" });
+    // }
+    // else {
+    //     res.status(401).send({ message: "Error Occoured" });
+    // }
+}
 
 // const deleteRecipecontrol = async (req, res) => {
 //     try {
@@ -139,4 +202,4 @@ const getRecipesControl = async (req, res) => {
 //     }
 // }
 
-module.exports = { getRecipesControl, RegisterUser, LoginUser }
+module.exports = { getRecipesControl, addRecipecontrol, RegisterUser, LoginUser }
