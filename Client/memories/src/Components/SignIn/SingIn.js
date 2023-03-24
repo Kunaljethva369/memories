@@ -33,7 +33,35 @@ function SignIn(sign) {
                 });
                 sign.props.props.setLogedIn(true);
                 localStorage.setItem('token', JSON.stringify({ "tokens": uuid(), "emailid": registerData.email }));
-                sign.props.props.setLoader(false);
+                // sign.props.props.setLoader(false);
+                const tokens = localStorage.getItem('token');
+                if (tokens) {
+                    const LoginedToken = JSON.parse(tokens).emailid;
+                    const formToken = {
+                        email: LoginedToken
+                    }
+                    axios.post('https://react-curd.onrender.com/recipe/getRecipes', formToken).then(async (res) => {
+                        // axios.post('http://localhost:3001/recipe/getRecipes', formToken).then(async (res) => {
+                        const data = await res.data;
+                        sign.props.props.setMemories(data);
+                        sign.props.props.setLoader(false);
+                    }).catch((err) => {
+                        console.log(err);
+                    });
+                }
+                else {
+                    console.log("LOGIN");
+                    sign.props.props.setLoader(false);
+                }
+                // }
+                // getData();
+                const token = localStorage.getItem('token');
+                if (token) {
+                    sign.props.props.setLogedIn(true);
+                }
+                else {
+                    sign.props.props.setLogedIn(false);
+                }
             }
             else if (res.data.message == "User already exists") {
                 alert("EmailId Exists, please enter other email id");
