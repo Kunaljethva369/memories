@@ -41,7 +41,7 @@ function ClusterCompo() {
 
 
     const getRandomRecipes = () => {
-        axios.get("http://localhost:3001/recipe/randonrecipes").then((res) => {
+        axios.get("https://react-curd.onrender.com/recipe/randonrecipes").then((res) => {
             setMemories(res.data);
         }).catch((err) => {
             console.log(err);
@@ -57,8 +57,8 @@ function ClusterCompo() {
                 const formToken = {
                     email: LoginedToken
                 }
-                // axios.get('https://react-curd.onrender.com/recipe/getrecipes').then(async (res) => {
-                axios.post('http://localhost:3001/recipe/getrecipes', formToken).then(async (res) => {
+                axios.get('https://react-curd.onrender.com/recipe/getrecipes', formToken).then(async (res) => {
+                    // axios.post('http://localhost:3001/recipe/getrecipes', formToken).then(async (res) => {
                     const data = await res.data;
                     setMemories(data);
                     setLoader(false);
@@ -69,7 +69,8 @@ function ClusterCompo() {
             else {
                 setLoader(true);
                 // const getRandomRecipes = () => {
-                axios.get("http://localhost:3001/recipe/randonrecipes").then((res) => {
+                axios.get("https://react-curd.onrender.com/recipe/randonrecipes").then((res) => {
+                    // axios.get("http://localhost:3001/recipe/randonrecipes").then((res) => {
                     setMemories(res.data.recipes);
                 }).catch((err) => {
                     console.log(err);

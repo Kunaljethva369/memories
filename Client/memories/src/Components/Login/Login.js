@@ -23,7 +23,8 @@ function Login(login) {
     const handleData = (e) => {
         login.props.setLoader(true);
         e.preventDefault();
-        axios.post('http://localhost:3001/recipe/loginUser', loginData).then((res) => {
+        // axios.post('http://localhost:3001/recipe/loginUser', loginData).then((res) => {
+        axios.post('https://react-curd.onrender.com/recipe/loginUser', loginData).then((res) => {
             if (res.data.message == 'Login Success') {
                 login.props.setLoginPopUp(false);
                 setLoginData({
@@ -39,8 +40,8 @@ function Login(login) {
                     const formToken = {
                         email: LoginedToken
                     }
-                    // axios.get('https://react-curd.onrender.com/recipe/getrecipes').then(async (res) => {
-                    axios.post('http://localhost:3001/recipe/getrecipes', formToken).then(async (res) => {
+                    axios.get('https://react-curd.onrender.com/recipe/getrecipes', formToken).then(async (res) => {
+                        // axios.post('http://localhost:3001/recipe/getrecipes', formToken).then(async (res) => {
                         const data = await res.data;
                         login.props.setMemories(data);
                         login.props.setLoader(false);
