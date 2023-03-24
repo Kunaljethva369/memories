@@ -40,7 +40,7 @@ function Login(login) {
                     const formToken = {
                         email: LoginedToken
                     }
-                    axios.get('https://react-curd.onrender.com/recipe/getRecipes', formToken).then(async (res) => {
+                    axios.post('https://react-curd.onrender.com/recipe/getRecipes', formToken).then(async (res) => {
                         // axios.post('http://localhost:3001/recipe/getRecipes', formToken).then(async (res) => {
                         const data = await res.data;
                         login.props.setMemories(data);
