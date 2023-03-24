@@ -32,7 +32,35 @@ function Login(login) {
                 });
                 login.props.setLogedIn(true);
                 localStorage.setItem('token', JSON.stringify({ "tokens": uuid(), "emailid": loginData.email }));
-                login.props.setLoader(false);
+                // login.props.setLoader(false);
+                const tokens = localStorage.getItem('token');
+                if (tokens) {
+                    const LoginedToken = JSON.parse(tokens).emailid;
+                    const formToken = {
+                        email: LoginedToken
+                    }
+                    // axios.get('https://react-curd.onrender.com/recipe/getrecipes').then(async (res) => {
+                    axios.post('http://localhost:3001/recipe/getrecipes', formToken).then(async (res) => {
+                        const data = await res.data;
+                        login.props.setMemories(data);
+                        login.props.setLoader(false);
+                    }).catch((err) => {
+                        console.log(err);
+                    });
+                }
+                else {
+                    console.log("LOGIN");
+                    login.props.setLoader(false);
+                }
+                // }
+                // getData();
+                const token = localStorage.getItem('token');
+                if (token) {
+                    login.props.setLogedIn(true);
+                }
+                else {
+                    login.props.setLogedIn(false);
+                }
             }
             else {
                 alert("Invalid Email or Password");

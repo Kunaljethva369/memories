@@ -26,11 +26,26 @@ function ClusterCompo() {
     const [memories, setMemories] = useState([]);
 
     const openPopUp = () => {
-        setPopup(true);
+        const tokens = localStorage.getItem('token');
+        if (tokens) {
+            setPopup(true);
+        }
+        else {
+            setLoginPopUp(true);
+        }
     }
 
     const closePopup = () => {
         setPopup(false);
+    }
+
+
+    const getRandomRecipes = () => {
+        axios.get("http://localhost:3001/recipe/randonrecipes").then((res) => {
+            setMemories(res.data);
+        }).catch((err) => {
+            console.log(err);
+        })
     }
 
     useEffect(() => {
@@ -52,11 +67,20 @@ function ClusterCompo() {
                 });
             }
             else {
-                console.log("LOGIN");
+                setLoader(true);
+                // const getRandomRecipes = () => {
+                axios.get("http://localhost:3001/recipe/randonrecipes").then((res) => {
+                    setMemories(res.data.recipes);
+                }).catch((err) => {
+                    console.log(err);
+                });
             }
+            console.log("LOGIN");
             setLoader(false);
+            // }
         }
         getData();
+        // getRandomRecipes();
         const token = localStorage.getItem('token');
         if (token) {
             setLogedIn(true);
@@ -70,9 +94,9 @@ function ClusterCompo() {
         <>
             <Loader props={{ loader }} />
             <div className='container'>
-                <Login props={{ loginPopUp, setLoginPopUp, setLogedIn, setLoader }} />
-                <Navbar props={{ setPopup, openPopUp, setLoginPopUp, closePopup, logedIn, setLogedIn }} />
-                <Cards props={{ memories, setMemories, formData, setFormData, setPopup, setIsEiditing, setEditId, setLoader }} />
+                <Login props={{ loginPopUp, setLoginPopUp, setLogedIn, setLoader, setMemories, getRandomRecipes }} />
+                <Navbar props={{ setPopup, openPopUp, setLoginPopUp, closePopup, logedIn, setLogedIn, getRandomRecipes, setMemories }} />
+                <Cards props={{ memories, setMemories, formData, setFormData, setPopup, setIsEiditing, setEditId, setLoader, getRandomRecipes }} />
                 <PopUp props={{ popUp, setPopup, formData, setFormData, closePopup, memories, setMemories, isEiditing, editId, setLoader }} />
             </div>
         </>

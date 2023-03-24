@@ -1,11 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const { getRecipesControl, addRecipecontrol, RegisterUser, LoginUser } = require('../Controllers/getMemoriesControl');
+const { randomRecipes, getRecipesControl, addRecipecontrol, deleteRecipecontrol, RegisterUser, LoginUser } = require('../Controllers/getMemoriesControl');
 
+router.route('/randonrecipes').get(randomRecipes);
 router.route('/regsiterUser').post(RegisterUser);
 router.route('/loginUser').post(LoginUser);
 router.route('/getRecipes').post(getRecipesControl);
 router.route('/addRecipe').post(addRecipecontrol);
-// router.route('/deleterecpie/:id').delete(deleteRecipecontrol);
+router.route('/deleterecpie').delete(deleteRecipecontrol);
 
 module.exports = router;

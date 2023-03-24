@@ -20,14 +20,17 @@ function InnerCards(data) {
             }
         });
         data.sendToInnerData.props.setLoader(true);
+        const token = localStorage.getItem('token');
+        const userEmail = JSON.parse(token).emailid;
+        const recipeId = deletedMemories[0].id;
         // axios.delete(`https://react-curd.onrender.com/recipe/deleterecpie/${deletedMemories[0].id}`).then(async (res) => {
-        // axios.delete(`http://localhost:3001/recipe/deleterecpie/${deletedMemories[0].id}`).then(async (res) => {
-        //     if (res.data.message == "Deleted Memories");
-        //     await data.sendToInnerData.props.setMemories(remainingMemoreis);
-        //     data.sendToInnerData.props.setLoader(false);
-        // }).catch((err) => {
-        //     console.log(err);
-        // });
+        axios.delete(`http://localhost:3001/recipe/deleterecpie`, { data: { recipeId, userEmail } }).then(async (res) => {
+            if (res.data.message == "Deleted Memories");
+            await data.sendToInnerData.props.setMemories(remainingMemoreis);
+            data.sendToInnerData.props.setLoader(false);
+        }).catch((err) => {
+            console.log(err);
+        });
     }
 
 
@@ -44,7 +47,6 @@ function InnerCards(data) {
     return (
         <>
             {
-
                 data.sendToInnerData.props.memories?.length > 0 ? data.sendToInnerData.props.memories.map((el, key) => {
                     return (
                         <>
@@ -54,10 +56,12 @@ function InnerCards(data) {
                                     <h6 className="card-subtitle mb-2 text-muted">{el.subTitle}</h6>
                                     <h5 className="card-title">{el.title}</h5>
                                     <p className="card-text">{el.message}</p>
-                                    <div className='d-flex justify-content-between'>
-                                        <button className="card-link" onClick={() => { editMemories(el) }}>Edit</button>
-                                        <button className="card-link del" onClick={() => { deleteMemoreis(el) }}>Delete</button>
-                                    </div>
+                                    {
+                                        localStorage.getItem('token') ? <div className='d-flex justify-content-between'>
+                                            <button className="card-link" onClick={() => { editMemories(el) }}>Edit</button>
+                                            <button className="card-link del" onClick={() => { deleteMemoreis(el) }}>Delete</button>
+                                        </div> : ''
+                                    }
                                 </div>
                             </div>
                         </>

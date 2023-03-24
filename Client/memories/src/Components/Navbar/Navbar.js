@@ -1,11 +1,17 @@
 import React from 'react';
 import './Navbar.css';
+import axios from 'axios';
 
 function Navbar(setPopup) {
 
     const handleLogout = () => {
         setPopup.props.setLogedIn(false);
         localStorage.removeItem('token');
+        axios.get("http://localhost:3001/recipe/randonrecipes").then((res) => {
+            setPopup.props.setMemories(res.data.recipes);
+        }).catch((err) => {
+            console.log(err);
+        });
     }
 
     return (

@@ -9,6 +9,12 @@
     padding-bottom: 2rem;
 }
 
+.plslogin{
+    display: flex;
+    justify-content: center;
+    font-size: 1.4rem;
+    color: yellow;
+}
 
 @media only screen and (max-width:1400px) {
     .cards {

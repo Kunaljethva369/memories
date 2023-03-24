@@ -1,6 +1,7 @@
 // const Memories = require('../Schema/Schema');
 const Recipes = require('../Schema/recipeSchema');
 const LoginRegister = require('../Schema/Schema');
+const fs = require('fs');
 
 const RegisterUser = async (req, res) => {
     const { name, email, password } = req.body;
@@ -190,15 +191,67 @@ const addRecipecontrol = async (req, res) => {
     // }
 }
 
-// const deleteRecipecontrol = async (req, res) => {
-//     try {
-//         const id = req.params.id
-//         await Memories.deleteOne({ id });
-//         res.status(200).send({ message: "Deleted Recipe" });
-//     }
-//     catch (err) {
-//         console.log(err);
-//     }
-// }
+const deleteRecipecontrol = async (req, res) => {
+    const { recipeId, userEmail } = req.body;
 
-module.exports = { getRecipesControl, addRecipecontrol, RegisterUser, LoginUser }
+    // First, find the user by email and populate the recipes array
+    LoginRegister.findOne({ email: userEmail })
+        .populate('recipes')
+        .exec((err, user) => {
+            if (err) {
+                console.log('Error:', err);
+                res.status(500).send(err);
+            } else if (!user) {
+                console.log('User not found');
+                res.status(404).send('User not found');
+            } else {
+                // Find the recipe to be deleted in the user's recipes array
+                const recipeToDelete = user.recipes.find(recipe => recipe.id === recipeId);
+                if (!recipeToDelete) {
+                    console.log('Recipe not found');
+                    res.status(404).send('Recipe not found');
+                } else {
+                    // Remove the recipe from the user's recipes array
+                    const updatedRecipes = user.recipes.filter(recipe => recipe.id !== recipeId);
+                    user.recipes = updatedRecipes;
+
+                    // Save the updated user document
+                    user.save((err, updatedUser) => {
+                        if (err) {
+                            console.log('Error:', err);
+                            res.status(500).send(err);
+                        } else {
+                            console.log('Recipe deleted successfully');
+                            res.send('Recipe deleted successfully');
+                        }
+                    });
+
+                    // Delete the recipe document from the Recipe collection
+                    Recipes.deleteOne({ _id: recipeToDelete._id }, (err) => {
+                        if (err) {
+                            console.log('Error:', err);
+                        } else {
+                            console.log('Recipe document deleted successfully');
+                        }
+                    });
+                }
+            }
+        });
+    // try {
+    //     const id = req.params.id
+    //     await .deleteOne({ id });
+    //     res.status(200).send({ message: "Deleted Recipe" });
+    // }
+    // catch (err) {
+    //     console.log(err);
+    // }
+}
+
+const randomRecipes = (req, res) => {
+    fs.readFile('randomRecipes.json', 'utf-8', (err, data) => {
+        if (err) throw err;
+        res.status(201).send({ "recipes": JSON.parse(data) });
+    });
+}
+
+module.exports = { randomRecipes, getRecipesControl, addRecipecontrol, deleteRecipecontrol, RegisterUser, LoginUser }

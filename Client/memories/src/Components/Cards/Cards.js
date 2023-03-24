@@ -6,8 +6,11 @@ function Cards(data) {
 
     return (
         <>
+            {
+                localStorage.getItem('token') ? '' : <marquee class='plslogin'>Login, To See Your Recipes</marquee>
+            }
             <div className='cards'>
-                <InnerCards sendToInnerData={data}/>
+                <InnerCards sendToInnerData={data} />
             </div>
         </>
     )
