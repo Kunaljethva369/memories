@@ -27,7 +27,7 @@ function PopUp(popUp) {
 
     const handleData = (e) => {
         e.preventDefault();
-        popUp.props.setLoader(true);
+        popUp.props.setLoader(false);
         if (popUp.props.isEiditing) {
             const editMemories = popUp.props.memories.filter((el) => {
                 return el.id == popUp.props.editId;
@@ -56,7 +56,7 @@ function PopUp(popUp) {
                     // axios.post('http://localhost:3001/recipe/getRecipes', formToken).then(async (res) => {
                         const data = await res.data;
                         popUp.props.setMemories(data);
-                        popUp.props.setLoader(false);
+                        popUp.props.setLoader(true);
                         popUp.props.setIsEiditing(false);
                     }).catch((err) => {
                         console.log(err);
@@ -87,7 +87,7 @@ function PopUp(popUp) {
             }
             const myObjectId = objectId();
             popUp.props.formData.id = myObjectId;
-            popUp.props.setLoader(true);
+            popUp.props.setLoader(false);
             const token = localStorage.getItem('token');
             // console.log(JSON.parse(token).emailid);
             popUp.props.formData.emailid = JSON.parse(token).emailid
@@ -96,7 +96,7 @@ function PopUp(popUp) {
                 if (res.data.message == "Recipe is Stored") {
                     console.log("Memories Stored");
                     popUp.props.setMemories([...popUp.props.memories, popUp.props.formData]);
-                    popUp.props.setLoader(false);
+                    popUp.props.setLoader(true);
                 }
                 else {
                     console.log(err);
@@ -156,36 +156,7 @@ function PopUp(popUp) {
                                                         </div>
                                                     </div>
                                                 </div>
-                                                {/* <SignIn /> */}
                                             </div>
-                                            {/* <div className="user-box">
-                        <input type="text" value={popUp.props.formData.title} onChange={handleChange} name="title" required />
-                        <label>Title</label>
-                    </div>
-                    <div className="user-box">
-                        <input type="text" value={popUp.props.formData.subTitle} onChange={handleChange} name="subTitle" required />
-                        <label>SubTitle</label>
-                    </div>
-                    <div className="user-box">
-                        <input type="text" value={popUp.props.formData.message} onChange={handleChange} name="message" required />
-                        <label>Message</label>
-                    </div>
-                    <input className='chooseFile' type="file" onChange={handleChange} name="image" />
-                    <div className='d-flex justify-content-between'>
-                        <button type='submit'>
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                            Submit
-                        </button> */}
-                                            {/* <button type='reset'>
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                            Clear
-                        </button> */}
                                         </div>
                                     </form>
                                 </div>

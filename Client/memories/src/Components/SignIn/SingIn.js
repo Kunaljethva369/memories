@@ -20,9 +20,8 @@ function SignIn(sign) {
         });
     }
 
-
     const handleSubmit = () => {
-        sign.props.props.setLoader(true);
+        sign.props.props.setLoader(false);
         sign.props.props.setLoginPopUp(false);
         axios.post('https://react-curd.onrender.com/recipe/regsiterUser', registerData).then((res) => {
             if (res.data.message == "User registered successfully") {
@@ -44,17 +43,14 @@ function SignIn(sign) {
                         // axios.post('http://localhost:3001/recipe/getRecipes', formToken).then(async (res) => {
                         const data = await res.data;
                         sign.props.props.setMemories(data);
-                        sign.props.props.setLoader(false);
+                        sign.props.props.setLoader(true);
                     }).catch((err) => {
                         console.log(err);
                     });
                 }
                 else {
-                    console.log("LOGIN");
-                    sign.props.props.setLoader(false);
+                    sign.props.props.setLoader(true);
                 }
-                // }
-                // getData();
                 const token = localStorage.getItem('token');
                 if (token) {
                     sign.props.props.setLogedIn(true);
@@ -64,6 +60,7 @@ function SignIn(sign) {
                 }
             }
             else if (res.data.message == "User already exists") {
+                sign.props.props.setLoader(true);
                 alert("EmailId Exists, please enter other email id");
             }
         }).catch((err) => {
@@ -99,18 +96,6 @@ function SignIn(sign) {
                                 <i class="input-icon uil uil-lock-alt"></i>
                             </div>
                         </div>
-                        {/* {
-                            showOTP ?
-                                <>
-                                    <div class="form-group mt-2">
-                                        <div className='formsKunal'>
-                                            <div><i class="fa fa-key fs-4" aria-hidden="true"></i></div>
-                                            <input type="text" className='form-style' name='OTP' maxLength={6} placeholder="Please Enter OTP" required />
-                                            <i class="input-icon uil uil-lock-alt"></i>
-                                        </div>
-                                    </div>
-                                </> : ''
-                        } */}
                         <button className='btn mt-4' onClick={handleSubmit} value="submit">Register</button>
                     </div>
                 </div>

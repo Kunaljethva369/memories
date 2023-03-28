@@ -19,7 +19,7 @@ function InnerCards(data) {
                 return element.id == el.id;
             }
         });
-        data.sendToInnerData.props.setLoader(true);
+        data.sendToInnerData.props.setLoader(false);
         const token = localStorage.getItem('token');
         const userEmail = JSON.parse(token).emailid;
         const recipeId = deletedMemories[0].id;
@@ -27,7 +27,7 @@ function InnerCards(data) {
             // axios.delete(`http://localhost:3001/recipe/deleterecpie`, { data: { recipeId, userEmail } }).then(async (res) => {
             if (res.data.message == "Deleted Memories");
             await data.sendToInnerData.props.setMemories(remainingMemoreis);
-            data.sendToInnerData.props.setLoader(false);
+            data.sendToInnerData.props.setLoader(true);
         }).catch((err) => {
             console.log(err);
         });

@@ -6,9 +6,11 @@ function Navbar(setPopup) {
 
     const handleLogout = () => {
         setPopup.props.setLogedIn(false);
+        setPopup.props.setLoader(false);
         localStorage.removeItem('token');
         axios.get("https://react-curd.onrender.com/recipe/randonrecipes").then((res) => {
             setPopup.props.setMemories(res.data.recipes);
+            setPopup.props.setLoader(true);
         }).catch((err) => {
             console.log(err);
         });

@@ -20,7 +20,7 @@ function Login(login) {
     }
 
     const handleData = (e) => {
-        login.props.setLoader(true);
+        login.props.setLoader(false);
         e.preventDefault();
         // axios.post('http://localhost:3001/recipe/loginUser', loginData).then((res) => {
         login.props.setLoginPopUp(false);
@@ -43,7 +43,7 @@ function Login(login) {
                         // axios.post('http://localhost:3001/recipe/getRecipes', formToken).then(async (res) => {
                         const data = await res.data;
                         login.props.setMemories(data);
-                        login.props.setLoader(false);
+                        login.props.setLoader(true);
                     }).catch((err) => {
                         console.log(err);
                     });
@@ -60,6 +60,7 @@ function Login(login) {
                 }
             }
             else {
+                login.props.setLoader(true);
                 alert("Invalid Email or Password");
             }
 
