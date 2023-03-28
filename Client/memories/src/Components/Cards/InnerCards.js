@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import axios from 'axios';
 
 function InnerCards(data) {
@@ -39,7 +39,6 @@ function InnerCards(data) {
         data.sendToInnerData.props.formData.subTitle = el.subTitle;
         data.sendToInnerData.props.formData.message = el.message;
         data.sendToInnerData.props.setEditId(el.id);
-        // data.sendToInnerData.props.formData.image
         data.sendToInnerData.props.setPopup(true);
         data.sendToInnerData.props.setIsEiditing(true);
     }

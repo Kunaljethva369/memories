@@ -23,9 +23,9 @@ function SignIn(sign) {
 
     const handleSubmit = () => {
         sign.props.props.setLoader(true);
+        sign.props.props.setLoginPopUp(false);
         axios.post('https://react-curd.onrender.com/recipe/regsiterUser', registerData).then((res) => {
             if (res.data.message == "User registered successfully") {
-                sign.props.props.setLoginPopUp(false);
                 setRegisterData({
                     name: "",
                     email: "",

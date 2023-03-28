@@ -4,7 +4,6 @@ import { v4 as uuid } from 'uuid';
 import SignIn from '../SignIn/SingIn';
 import './Login.css';
 
-
 function Login(login) {
 
     const [loginData, setLoginData] = useState({
@@ -24,9 +23,9 @@ function Login(login) {
         login.props.setLoader(true);
         e.preventDefault();
         // axios.post('http://localhost:3001/recipe/loginUser', loginData).then((res) => {
+        login.props.setLoginPopUp(false);
         axios.post('https://react-curd.onrender.com/recipe/loginUser', loginData).then((res) => {
             if (res.data.message == 'Login Success') {
-                login.props.setLoginPopUp(false);
                 setLoginData({
                     email: "",
                     password: "",
@@ -50,11 +49,8 @@ function Login(login) {
                     });
                 }
                 else {
-                    console.log("LOGIN");
                     login.props.setLoader(false);
                 }
-                // }
-                // getData();
                 const token = localStorage.getItem('token');
                 if (token) {
                     login.props.setLogedIn(true);

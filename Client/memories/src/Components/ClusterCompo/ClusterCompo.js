@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { v4 as uuid } from 'uuid';
 import axios from 'axios';
 import Loader from '../Loader/Loader';
 import Cards from '../Cards/Cards';
@@ -8,7 +7,6 @@ import PopUp from '../PopUp/PopUp';
 import Login from '../Login/Login';
 
 function ClusterCompo() {
-
 
     const [formData, setFormData] = useState({
         id: "",
@@ -37,16 +35,19 @@ function ClusterCompo() {
 
     const closePopup = () => {
         setPopup(false);
+        if (isEiditing) {
+            setIsEiditing(false);
+        }
     }
-
 
     const getRandomRecipes = () => {
         axios.get("https://react-curd.onrender.com/recipe/randonrecipes").then((res) => {
             setMemories(res.data);
         }).catch((err) => {
             console.log(err);
-        })
+        });
     }
+
 
     useEffect(() => {
         const getData = () => {
@@ -68,7 +69,6 @@ function ClusterCompo() {
             }
             else {
                 setLoader(true);
-                // const getRandomRecipes = () => {
                 axios.get("https://react-curd.onrender.com/recipe/randonrecipes").then((res) => {
                     // axios.get("http://localhost:3001/recipe/randonrecipes").then((res) => {
                     setMemories(res.data.recipes);
@@ -78,10 +78,8 @@ function ClusterCompo() {
             }
             console.log("LOGIN");
             setLoader(false);
-            // }
         }
         getData();
-        // getRandomRecipes();
         const token = localStorage.getItem('token');
         if (token) {
             setLogedIn(true);
@@ -98,7 +96,7 @@ function ClusterCompo() {
                 <Login props={{ loginPopUp, setLoginPopUp, setLogedIn, setLoader, setMemories, getRandomRecipes }} />
                 <Navbar props={{ setPopup, openPopUp, setLoginPopUp, closePopup, logedIn, setLogedIn, getRandomRecipes, setMemories }} />
                 <Cards props={{ memories, setMemories, formData, setFormData, setPopup, setIsEiditing, setEditId, setLoader, getRandomRecipes }} />
-                <PopUp props={{ popUp, setPopup, formData, setFormData, closePopup, memories, setMemories, isEiditing, editId, setLoader }} />
+                <PopUp props={{ popUp, setPopup, formData, setFormData, closePopup, memories, setMemories, isEiditing, editId, setLoader, setIsEiditing }} />
             </div>
         </>
     )

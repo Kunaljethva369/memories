@@ -5,9 +5,7 @@ import ClusterCompo from './Components/ClusterCompo/ClusterCompo';
 function App() {
     return (
         <>
-            {/* <div className=''> */}
-                <ClusterCompo />
-            {/* </div> */}
+            <ClusterCompo />
         </>
     )
 }
