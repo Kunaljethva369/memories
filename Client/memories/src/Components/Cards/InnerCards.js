@@ -1,36 +1,10 @@
 import React from 'react';
-import axios from 'axios';
+// import DeletePop from '../DeletePop/DeletePop';
 
 function InnerCards(data) {
     const deleteMemoreis = (el) => {
-        const remainingMemoreis = data.sendToInnerData.props.memories.filter((element) => {
-            if (data.sendToInnerData.props.memories.length == 1) {
-                return element.id !== el.id;
-            }
-            else {
-                return element.id !== el.id;
-            }
-        });
-        const deletedMemories = data.sendToInnerData.props.memories.filter((element) => {
-            if (data.sendToInnerData.props.memories.length == 1) {
-                return element.id == el.id;
-            }
-            else {
-                return element.id == el.id;
-            }
-        });
-        data.sendToInnerData.props.setLoader(false);
-        const token = localStorage.getItem('token');
-        const userEmail = JSON.parse(token).emailid;
-        const recipeId = deletedMemories[0].id;
-        axios.delete(`https://react-curd.onrender.com/recipe/deleterecpie`, { data: { recipeId, userEmail } }).then(async (res) => {
-            // axios.delete(`http://localhost:3001/recipe/deleterecpie`, { data: { recipeId, userEmail } }).then(async (res) => {
-            if (res.data.message == "Deleted Memories");
-            await data.sendToInnerData.props.setMemories(remainingMemoreis);
-            data.sendToInnerData.props.setLoader(true);
-        }).catch((err) => {
-            console.log(err);
-        });
+        data.sendToInnerData.props.setDeletePop(true);
+        data.sendToInnerData.props.setDeletedElement(el);
     }
 
 

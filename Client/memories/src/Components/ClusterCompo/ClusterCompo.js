@@ -5,6 +5,7 @@ import Cards from '../Cards/Cards';
 import Navbar from '../Navbar/Navbar';
 import PopUp from '../PopUp/PopUp';
 import Login from '../Login/Login';
+import DeletePop from '../DeletePop/DeletePop';
 
 function ClusterCompo() {
 
@@ -22,6 +23,8 @@ function ClusterCompo() {
     const [logedIn, setLogedIn] = useState(false);
     const [editId, setEditId] = useState([]);
     const [memories, setMemories] = useState([]);
+    const [deletePop, setDeletePop] = useState(false);
+    const [deletedElement, setDeletedElement] = useState({});
 
     const openPopUp = () => {
         const tokens = localStorage.getItem('token');
@@ -77,7 +80,7 @@ function ClusterCompo() {
                     console.log(err);
                 });
             }
-            console.log("LOGIN");
+            // console.log("LOGIN");
             // setLoader(false);
         }
         getData();
@@ -96,8 +99,9 @@ function ClusterCompo() {
             <div className='container'>
                 <Login props={{ loginPopUp, setLoginPopUp, setLogedIn, setLoader, setMemories, getRandomRecipes }} />
                 <Navbar props={{ setPopup, openPopUp, setLoginPopUp, closePopup, logedIn, setLogedIn, getRandomRecipes, setMemories, setLoader }} />
-                <Cards props={{ memories, setMemories, formData, setFormData, setPopup, setIsEiditing, setEditId, setLoader, getRandomRecipes }} />
+                <Cards props={{ memories, formData, setFormData, setPopup, setIsEiditing, setEditId, getRandomRecipes, setDeletePop, setDeletedElement }} />
                 <PopUp props={{ popUp, setPopup, formData, setFormData, closePopup, memories, setMemories, isEiditing, editId, setLoader, setIsEiditing }} />
+                <DeletePop props={{ deletePop, setDeletePop, deletedElement, memories, setLoader, setMemories }} />
             </div>
         </>
     )
